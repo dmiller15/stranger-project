@@ -25,18 +25,18 @@ Once you're logged in to your console, you should see 4 submenu items along the 
 * Images and Snapshots
 * Access and Security
 
-You'll want to click on Access and Security add your ssh keypair.
+Click on Access and Security to add your ssh keypair.
 
 The OSDC instrunctions for this are [here](https://www.opensciencedatacloud.org/support/ssh.html).
 
-On Mac/Linux, running `ssh-keygen` will generate an ssh public and private keypair, defaulting to `id_rsa`.
+### Mac/Linux
 
-If you already have this file, you can use it to login here, otherwise follow the steps to create a new keypair.
+Run `ssh-keygen` and follow the prompts to create a new keypair or use an already existing one (such as `id_rsa`).
 
 Back on the OSDC website, 
 
 * Click "Import Keypair", 
-* Input a name (I would recommend something like 'laptop' or 'lab-laptop') 
+* Input a descriptive name (such as laptop or lab-desktop) 
 * Paste the contents of your public key into the box. 
 * Choose 'login server' from the dropdown box.  
 
@@ -61,19 +61,9 @@ Now, to access the cluster you'll just need to type:
 
 ## Adding an ssh keypair for the login node
 
-You won't be performing any computations on the login node, except to ssh into any VMs you've spun up. 
+SSH into the griffin login node and repeat the previous Mac/Linux steps to generate a keypair on the login node.
 
-SSH into the griffin login node and repeat the previous steps to generate a keypair on the login node.
-
-(This might not be necessary) After this keypair is added, you will need to add it to both the ssh-agent and to nova:
-
-`# Unnecessary # ssh-add <path-to-private-key>`
-
-`# Unnecessary? # nova keypair-add --pub-key <path-to-key> <name>`
-
-Replacing <name> with a name of your choice (keep it simple)
-
-Under Access and Security
+Under Access and Security in the web console:
 
 * Click Import Keypair
 * Name your keypair the same name you used for the `nova` command earlier
