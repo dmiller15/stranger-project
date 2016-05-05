@@ -141,13 +141,22 @@ You will be able to name this snapshot and boot it later.
 
 ### Update CRAN repository
 
+
 The default version of R installed will be R/3.0.2.
 
 We need to update the CRAN repos searched by `apt-get`
 
+Append to `/etc/apt/sources.list.d/sources.list`
+
+`deb http://cran.case.edu/bin/linux/ubuntu trusty/`
+
+Now, add the gpg key for the CRAN repo
+
 `with_proxy sudo -E apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E084DAB9`
 
-Alternatively,
+----
+
+Alternatively
 
     with_proxy gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E084DAB9
 
@@ -155,7 +164,9 @@ and then feed it to apt-key with
 
     gpg -a --export E084DAB9 | sudo apt-key add -
 
-Then update the repo information
+----
+
+Update the repo information and install R
 
 `with_proxy sudo -E apt-get update`
 
@@ -186,7 +197,7 @@ Once you have data in storage, you will want to access it from your VM. The deve
 
 #### Installing duck.sh
 
-Append to `/etc/apt/sources.list`
+Append to `/etc/apt/sources.list.d/sources.list`
 
 `deb https://s3.amazonaws.com/repo.deb.cyberduck.io stable main`
 
