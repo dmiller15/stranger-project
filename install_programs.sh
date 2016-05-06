@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # invoke with sudo
 
 sudo echo 'deb http://cran.case.edu/bin/linux/ubuntu trusty/' >> /etc/apt/sources.list.d/sources.list
