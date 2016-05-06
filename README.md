@@ -61,12 +61,12 @@ Now, to access the cluster you'll just need to type:
 
 ## Adding an ssh keypair for the login node
 
-SSH into the griffin login node and repeat the previous Mac/Linux steps to generate a keypair on the login node.
+SSH into the griffin login node and repeat the previous Mac/Linux steps to generate a keypair to use when SSH'ing into a VM
 
 Under Access and Security in the web console:
 
 * Click Import Keypair
-* Name your keypair the same name you used for the `nova` command earlier
+* Name your keypair
 * Paste the contents of the public keyfile you created on the login node
 * Choose 'Instances' from the drop down menu
 
@@ -74,11 +74,11 @@ Finally, click Import Keypair.
 
 ## Spinning up a VM
 
-A VM is where you'll actually be doing your work. 
+Much like on Tarbell, you won't be performing any computations on the login node. Instead, you will use it to enter the VM and move files to and from the VM.
 
 Back in the web console, click on the Images & Snapshots tab.
 
-This brings up a list of the default images (Docker and several Ubuntu setups) as well as user-generated Snapshots.
+This brings up a list of the default images (Docker and several Ubuntu images) as well as user-generated Snapshots.
 
 To spin up a VM, select your image of choice and click Launch. This brings up a dialog where you specify the resources the VM will use. The available 'flavors' and listed [here](https://www.opensciencedatacloud.org/support/griffin.html#osdc-griffin-flavors). The lab shares these resources, so try to request the minimum you need to complete your job. 
 
@@ -91,6 +91,10 @@ Once the IP address is given, return to the terminal session and ssh into the lo
 `ssh -A ubuntu@<IP>`
 
 You should then be in the VM and are able to run your analyses.
+
+There is also a command line tool to view and manage your VMs from the login node.
+
+Run `nova` to print a list of options.
 
 ### VM Flavors and Snapshots
 
