@@ -4,12 +4,12 @@ duck_list() {
   path=$1
   access=$2
   secret=$3
-  duck --list griffin://$path --username $2 --password $3
+  duck --list cdis://$path --username $2 --password $3
 }
 
 duck_list_keys() {
   bucket=$1
-  duck --list griffin://$bucket/ --username $2 --password $3
+  duck --list cdis://$bucket/ --username $2 --password $3
 }
 duck_path=$(which duck)
 
@@ -35,7 +35,7 @@ do
   read entry
   case $entry in
     #1) echo "listing buckets";;
-    1) duck_list ''~'' $access $secret; break;;
+    1) duck_list ''~'' $access $secret;;
     2) echo "Which bucket?"; read bucket; duck_list_keys $bucket $access $secret;;
     e) echo "Exiting";break;;
     *) echo "Invalid argument";;
