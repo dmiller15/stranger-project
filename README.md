@@ -3,7 +3,7 @@ This document is available online [here](https://gist.github.com/cczysz/4b4c563b
 Clone this to the VM using
 
 `PROXY='http://cloud-proxy:3128' \
-http_proxy="${PROXY}" https_proxy="${PROXY}" https://gitlab.com/cczysz/osdc-docs/`
+http_proxy="${PROXY}" https_proxy="${PROXY}" git clone https://gitlab.com/cczysz/osdc-docs/`
 
 # Starting out with OSDC/PDC
 
