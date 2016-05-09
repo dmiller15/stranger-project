@@ -1,5 +1,10 @@
 This document is available online [here](https://gist.github.com/cczysz/4b4c563b776a04d1de7b6ac3490e4d8e)
 
+Clone this to the VM using
+
+`PROXY='http://cloud-proxy:3128' \
+http_proxy="${PROXY}" https_proxy="${PROXY}" https://gitlab.com/cczysz/osdc-docs/`
+
 # Starting out with OSDC/PDC
 
 * Create and log in to your account
@@ -33,11 +38,11 @@ The OSDC instrunctions for this are [here](https://www.opensciencedatacloud.org/
 
 Run `ssh-keygen` and follow the prompts to create a new keypair or use an already existing one (such as `id_rsa`).
 
-Back on the OSDC website, 
+Back on the OSDC website,
 
-* Click "Import Keypair", 
-* Input a descriptive name (such as laptop or lab-desktop) 
-* Paste the contents of your public key into the box. 
+* Click "Import Keypair",
+* Input a descriptive name (such as laptop or lab-desktop)
+* Paste the contents of your public key into the box.
 * Choose 'login server' from the dropdown box.  
 
 And finally click 'Import Keypair'
@@ -80,7 +85,7 @@ Back in the web console, click on the Images & Snapshots tab.
 
 This brings up a list of the default images (Docker and several Ubuntu images) as well as user-generated Snapshots.
 
-To spin up a VM, select your image of choice and click Launch. This brings up a dialog where you specify the resources the VM will use. The available 'flavors' and listed [here](https://www.opensciencedatacloud.org/support/griffin.html#osdc-griffin-flavors). The lab shares these resources, so try to request the minimum you need to complete your job. 
+To spin up a VM, select your image of choice and click Launch. This brings up a dialog where you specify the resources the VM will use. The available 'flavors' and listed [here](https://www.opensciencedatacloud.org/support/griffin.html#osdc-griffin-flavors). The lab shares these resources, so try to request the minimum you need to complete your job.
 
 Also in the creation dialog, click Access & Security and choose the second keypair you added (it should be the only one available). This will automatically add the private key to the VM so you can log in easily.
 
@@ -129,7 +134,7 @@ and
 
 `sudo apt-get install` becomes `with_proxy sudo -E apt-get install`
 
-The power of snapshots becomes apparent as you install software you need to the vanilla images. To save the VM and all installed software, go to the web console, click 'Images & Snapshots' and click Save Snapshot at the appropriate entry. 
+The power of snapshots becomes apparent as you install software you need to the vanilla images. To save the VM and all installed software, go to the web console, click 'Images & Snapshots' and click Save Snapshot at the appropriate entry.
 
 You will be able to name this snapshot and boot it later.
 
@@ -165,7 +170,7 @@ Update the repo information and install R
 `with_proxy sudo -E apt-get update`
 
 `with_proxy sudo -E apt-get install r-base`
-    
+
 ## File Storage
 
 We are allocated 1Tb of object storage via CEPH, an s3 compatible file system.
@@ -182,7 +187,7 @@ Mac and PC users can use the free program [Cyberduck](https://cyberduck.io/) to 
 * Input `griffin-objstore.opensciencedatacloud.org` as the server
 * Input your access key as the username
 * Input your secret key as the password
- 
+
 Once you log in, create a new bucket (folder) for your project and upload files as necessary.
 
 ### CLI Access
