@@ -241,7 +241,7 @@ If you chown /mnt, then the docker process will fail.
 
 ## Interactive Rstudio Docker
 
-I've created a (Docker)[https://hub.docker.com/r/cczysz/rstudio-bio/] based on R/3.3.0 and Rstudio with most of the packages we use preinstalled.
+I've created a [Docker](https://hub.docker.com/r/cczysz/rstudio-bio/) based on R/3.3.0 and Rstudio with most of the packages we use preinstalled.
 
 The most useful thing about this docker is the Rstudio GUI can be accessed in your web browser, making its use much easier.
 
