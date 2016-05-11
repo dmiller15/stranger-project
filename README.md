@@ -223,3 +223,54 @@ You will need to install a new profile to access the object storage using `duck`
 Once this profile is set up, you can access the object storage via `duck` commands.
 
 `duck --list cdis://~ --username <access> --password <secret>`
+
+# Dockers
+
+Docker images can also be run in a VM, simply spin up either the default Docker image or the one I made.
+
+If using ephemeral storage, you must first create a new directory in /mnt before running the chmod command
+
+```
+# Create new directory
+sudo mkdir /mnt/data
+
+sudo chown ubuntu:ubuntu /mnt/data
+```
+
+If you chown /mnt, then the docker process will fail.
+
+## Interactive Rstudio Docker
+
+I've created a (Docker)[https://hub.docker.com/r/cczysz/rstudio-bio/] based on R/3.3.0 and Rstudio with most of the packages we use preinstalled.
+
+The most useful thing about this docker is the Rstudio GUI can be accessed in your web browser, making its use much easier.
+
+```
+# Create a storage directory in /mnt and move files over to it
+
+sudo mkdir /mnt/data
+
+# DO NOT change the ownership of any other directories and files in /mnt or else docker will fail
+sudo chown ubuntu:ubuntu /mnt/data
+
+# Now copy over files to /mnt/data or sync them via duck
+
+# Make sure the docker client and server are running correctly
+docker version
+
+# Download the rstudio docker I created
+docker pull cczysz/rstudio-bio # This command will take a while but show its progress
+
+docker images # List local images, the only one should be cczysz/rstudio-bio
+
+# Now, start the docker as a daemon and allow port forwarding
+# docker run -d -p 8787:8787 cczysz/rstudio-bio
+
+# To mount a directory from the VM in the docker, use the -v <local-path>:<docker-path> flag
+docker run -d -p 8787:8787 -v /mnt/data:/mnt cczysz/rstudio-bio
+
+# Now, to access Rstudio, open a new terminal on your computer and set up port forwarding to the VM
+ssh -L 8787:<VM IP>:8787 griffin
+
+# This lets you access the Rstudio server by going to localhost:8787 in your computer's browser
+```
