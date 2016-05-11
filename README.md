@@ -66,7 +66,7 @@ AgentForwarding yes
 
 Now, to access the cluster you'll just need to type:
 
-`ssh <Host>`
+`ssh -A <Host>`
 
 ## Adding an ssh keypair for the login node
 
