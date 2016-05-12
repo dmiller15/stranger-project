@@ -276,3 +276,9 @@ ssh -L 8787:<VM IP>:8787 griffin
 
 # This lets you access the Rstudio server by going to localhost:8787 in your computer's browser
 ```
+
+### Useful flags
+
+Specify username and password instead of the defaults
+
+`docker run -d -p 8787:8787 -e USER=<username> -e PASSWORD=<password> cczysz/rstudio-bio`
