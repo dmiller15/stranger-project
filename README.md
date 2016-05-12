@@ -245,6 +245,8 @@ I've created a [Docker](https://hub.docker.com/r/cczysz/rstudio-bio/) based on R
 
 The most useful thing about this docker is the Rstudio GUI can be accessed in your web browser, making its use much easier.
 
+These instructions based on the tutorial available [here](https://github.com/rocker-org/rocker/wiki/Using-the-RStudio-image).
+
 ```
 # Create a storage directory in /mnt and move files over to it
 
