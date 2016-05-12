@@ -42,5 +42,9 @@ apt-get install -y --no-install-recommends -t unstable \
     qpdf \
     r-cran-rgl \
     ssh \
-    vim
+    vim \
+    R CMD javareconf \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/ \
+  && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 ```
