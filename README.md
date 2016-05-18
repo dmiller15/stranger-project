@@ -241,7 +241,7 @@ If you chown /mnt, then the docker process will fail.
 
 ## Interactive Rstudio Docker
 
-I've created a [Docker](https://hub.docker.com/r/cczysz/rstudio-bio/) based on R/3.3.0 and Rstudio with most of the packages we use preinstalled.
+I've created a [Docker](https://hub.docker.com/r/cczysz/rstudio) based on R/3.3.0 and Rstudio with most of the packages we use preinstalled.
 
 The most useful thing about this docker is the Rstudio GUI can be accessed in your web browser, making its use much easier.
 
@@ -261,15 +261,15 @@ sudo chown ubuntu:ubuntu /mnt/data
 docker version
 
 # Download the rstudio docker I created
-docker pull cczysz/rstudio-bio # This command will take a while but show its progress
+docker pull cczysz/rstudio # This command will take a while but show its progress
 
-docker images # List local images, the only one should be cczysz/rstudio-bio
+docker images # List local images, the only one should be cczysz/rstudio
 
 # Now, start the docker as a daemon and allow port forwarding
-# docker run -d -p 8787:8787 cczysz/rstudio-bio
+# docker run -d -p 8787:8787 cczysz/rstudio
 
 # To mount a directory from the VM in the docker, use the -v <local-path>:<docker-path> flag
-docker run -d -p 8787:8787 -v /mnt/data:/mnt cczysz/rstudio-bio
+docker run -d -p 8787:8787 -v /mnt/data:/mnt cczysz/rstudio
 
 # Now, to access Rstudio, open a new terminal on your computer and set up port forwarding to the VM
 ssh -L 8787:<VM IP>:8787 griffin
