@@ -1,3 +1,9 @@
+# Wiki
+
+Check out the wiki [here](https://gitlab.com/cczysz/osdc-docs/wikis/home)
+
+----
+
 This document is available online [here](https://gist.github.com/cczysz/4b4c563b776a04d1de7b6ac3490e4d8e)
 
 Clone this to the VM using
