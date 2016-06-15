@@ -1,7 +1,10 @@
 cancer_type="LUAD"
 
 count_dir="/mnt/data/gdc-mrna-counts/TCGA-$cancer_type"
-phen_data="/mnt/data/tcga/tcga_phens/t.LUAD.txt"
+phen_data="/mnt/data/tcga/tcga_phens/t.$cancer_type.txt"
+
+# Phen data created by transposing CDE files with datamash
+# cat CDEfile | datamash transpose > t.$cancer_type.txt
 
 count_data="/mnt/data/gdc-mrna-counts/mrna_data.txt"
 
