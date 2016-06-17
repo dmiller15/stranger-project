@@ -8,4 +8,8 @@ These files are specific to each cancer type. The first column describes each co
 
 I recommend transposing each file so that each row corresponds to a case.
 
-`cat <file> | datamash transpose > t.<file>`
+```
+#this step now performed in the match_files shell script
+
+cat <file> | datamash transpose > t.<file>
+```
