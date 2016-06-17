@@ -1,16 +1,22 @@
+# Script to match each case ID present in the Broad TCGA CDE file with an mRNA count file from the GDC
+# Returns a 2 column file: file_name	case_id
+
 cancer_type="LUAD"
 
-count_dir="/mnt/data/gdc-mrna-counts/TCGA-$cancer_type"
-phen_data="/mnt/data/tcga/tcga_phens/t.$cancer_type.txt"
-
-# Phen data created by transposing CDE files with datamash
-# cat CDEfile | datamash transpose > t.$cancer_type.txt
-
+path_prefix='/mnt/data'
+count_dir="$path_prefix/gdc-mrna-counts/TCGA-$cancer_type"
 count_data="/mnt/data/gdc-mrna-counts/mrna_data.txt"
+
+phen_data="$path_prefix/tcga/tcga_phens/t.$cancer_type.txt"
+
+# Create transposed file if doesn't exist
+if [ ! -f "$phen_data" ];
+then
+	cat $path_prefix/tcga/tcga_phens/$cancer_type.clin.merged.picked.txt | datamash transpose > $phen_data
+fi
 
 grep $cancer_type $count_data | grep "Primary Tumor" > $cancer_type.primary.files.txt
 grep $cancer_type $count_data | grep Normal > $cancer_type.normal.files.txt
-
 
 echo "ID\tFile" > count.files
 while read line; do
