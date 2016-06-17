@@ -33,4 +33,4 @@ while read line; do mkdir $line; done < programs.txt
 rm programs.txt
 ```
 
-Finally, modify the `move_files.sh` script to pull in the API output, and run it.
+Finally, modify the `move_files.sh` script to pull in the API output, and run it to move each downloaded file to a project directory.
