@@ -212,7 +212,7 @@ Append to `/etc/apt/sources.list.d/sources.list`
 
 Add the gpg key
 
-`with_proxy sudo -E apt-key adv --keyserver hpk://keyserver.ubuntu.com:80 --recv-keys FE7097963FEFBE72`
+`with_proxy sudo -E apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys FE7097963FEFBE72`
 
 Update the package list
 
