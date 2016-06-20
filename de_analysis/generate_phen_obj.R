@@ -7,7 +7,7 @@ source('variables.R')
 files_dir <- paste(dir_prefix, 'gdc-mrna-counts/TCGA-', cancer_type, sep='')
 phen_file <- paste(dir_prefix, '/tcga/tcga_phens/t.', cancer_type, '.txt', sep='')
 
-files_df <- read.table(file='count.files', header=T, stringsAsFactors=F, na.strings='', fill=T)
+files_df <- read.table(file=paste(cancer_type,'count.files',sep='.'), header=T, stringsAsFactors=F, na.strings='', fill=T)
 phens_df <- read.table(file=phen_file, header=T, stringsAsFactors=F, sep="\t", row.names=1)
 
 ids_with_counts <- (!is.na(files_df$File))
