@@ -15,13 +15,15 @@ then
 	cat $path_prefix/tcga/tcga_phens/$cancer_type.clin.merged.picked.txt | datamash transpose > $phen_data
 fi
 
+cut -f 1 $phen_data | tail -n +2 > $cancer_type.ids.txt
+
 grep $cancer_type $count_data | grep "Primary Tumor" > $cancer_type.primary.files.txt
 grep $cancer_type $count_data | grep Normal > $cancer_type.normal.files.txt
 
-echo "ID\tFile" > count.files
+echo "ID\tFile" > $cancer_type.count.files
 while read line; do
         tcga_id=$line
         file_line=$(cat LUAD.primary.files.txt | tr '[:upper:]' '[:lower:]' | grep $tcga_id)
         f=$(echo $file_line | cut -d ' ' -f 2)
-        echo "$tcga_id\t$f" >> count.files
-done < ids.txt
+        echo "$tcga_id\t$f" >> $cancer_type.count.files
+done < $cancer_type.ids.txt
