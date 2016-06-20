@@ -57,6 +57,21 @@ Back on the OSDC website,
 
 And finally click 'Import Keypair'
 
+### SSH into the login node
+
+Once your keypair is configured, you can access the login node via 
+
+`ssh -A <username>@<hostname>`
+
+Where `<username>` is your OSDC or Bionimbus username. This name may be different from your CNetID or ERACommons id. You can find what your username is by looking at the webconsole next to *Sign Out*. It may be first initial last name.
+
+The `<hostname>` depends on whether you're trying to access the OSDC or Bionimbus login node:
+
+```
+griffin.opensciencedatacloud.org
+bionimbus-pdc.opensciencedatacloud.org
+```
+
 ### Configuring your ssh config
 
 To make ssh'ing into the login node easier, create/edit `~/.ssh/config` and add the following lines:
@@ -65,7 +80,7 @@ To make ssh'ing into the login node easier, create/edit `~/.ssh/config` and add 
 Host griffin # You can change this to be any alias you'd like
 HostName griffin.opensciencedatacloud.org
 # HostName bionimbus-pdc.opensciencedatacloud.org # To access the PDC
-User # input your login name here
+User 
 PubkeyAuthentication yes
 AgentForwarding yes
 ```
@@ -212,7 +227,7 @@ Append to `/etc/apt/sources.list.d/sources.list`
 
 Add the gpg key
 
-`with_proxy sudo -E apt-key adv --keyserver hpk://keyserver.ubuntu.com:80 --recv-keys FE7097963FEFBE72`
+`with_proxy sudo -E apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys FE7097963FEFBE72`
 
 Update the package list
 
