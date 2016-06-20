@@ -29,9 +29,9 @@ The `perform_DE` script runs the DESeq2 differential expression analysis via the
 
 * Imports both the condition and count dataframes
 * Filters genes based on expression.
-** Separately for males and females: test whether a gene has counts > 10 in at least 6 individuals
-** Separate tests are combined via OR, which ensures genes expressed in at least one sex are included
+  * Separately for males and females: test whether a gene has counts > 10 in at least 6 individuals
+  * Separate tests are combined via OR, which ensures genes expressed in at least one sex are included
 * Surrogate variables are estimated from the genes passing expression filter
-** Variation due to sex accounted for
+  * Variation due to sex accounted for
 * Top two surrogate variables included in the DESeq2 model
-** gene\_expr ~ Sex + SV1 + SV2
+  * gene\_expr ~ Sex + SV1 + SV2
