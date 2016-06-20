@@ -58,8 +58,9 @@ exp_stats <- expr_df[(nrow(expr_df)-4):nrow(expr_df),]
 exprs <- expr_df[1:(nrow(expr_df)-5),]
 
 deseq <- performDE(exprs, cond)
-save(deseq, file=de_outfile)
+#save(deseq, file=de_outfile)
 
 deseq_results <- results(deseq, parallel=T)
 deseq_results <- deseq_results[order(deseq_results$padj),]
 save(deseq_results, file=res_outfile)
+write.csv(as.data.frame(deseqresults), file='results.csv')
