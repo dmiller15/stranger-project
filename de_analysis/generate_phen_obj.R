@@ -2,10 +2,7 @@
 # rownames are TCGA IDs
 # Columns are each covariate of interest
 
-# source('r_variables.R')
-cancer_type <- 'LUAD'
-dir_prefix <- '/mnt/data/'
-out_file <- paste('cancer_type', '.phens.Robj')
+source('variables.R')
 
 files_dir <- paste(dir_prefix, 'gdc-mrna-counts/TCGA-', cancer_type, sep='')
 phen_file <- paste(dir_prefix, '/tcga/tcga_phens/t.', cancer_type, '.txt', sep='')
@@ -19,4 +16,4 @@ phens <- phens_df[ids_with_counts,]
 cond <- phens[,'gender',drop=F]
 colnames(cond) <- 'Sex' # Rename gender to Sex
 
-save(cond, file=out_file)
+save(cond, file=phen_outfile)

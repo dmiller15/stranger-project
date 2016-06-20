@@ -3,11 +3,7 @@
 # Columns are each covariate of interest
 
 # source('r_variables.R')
-cancer_type <- 'LUAD'
-dir_prefix <- '/mnt/data/'
-out_file <- paste('cancer_type', '.counts.Robj')
 
-files_dir <- paste(dir_prefix, 'gdc-mrna-counts/TCGA-', cancer_type, sep='')
 files_df <- read.table(file='count.files', header=T, stringsAsFactors=F, na.strings='', fill=T)
 
 all_ids <- NULL
@@ -17,7 +13,7 @@ for (i in seq(nrow(files_df))) {
         f_in <- files_df$File[i]
 
         if (!is.na(f_in)) {
-                count_file <- paste(files_dir, f_in, sep='/')
+                count_file <- paste(mrna_files_dir, f_in, sep='/')
                 x <- read.table(file=count_file, header=F, row.names=1, stringsAsFactors=F)
                 all_counts[[i]] <- data.frame(x)
                 all_ids <- c(all_ids, id)
@@ -33,4 +29,4 @@ for (i in seq(length(all_counts))) {
 }
 
 colnames(counts_df) <- all_ids
-save(counts_df, file=out_file)
+save(counts_df, file=count_outfile)

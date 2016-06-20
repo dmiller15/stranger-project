@@ -1,44 +1,3 @@
-performDE <- function(expr, phen) {
-
-        # First, filter genes with 0 count in all individuals
-        use <- (rowSums(expr) > 0)
-        expr <- expr[use,]
-
-        # Filter low gene counts
-        # Genes must have counts > 10 in at least 6 males or 6 females
-
-nmale <- sum(phen$gender == 'male')
-maleUse <- (rowSums(expr[, phen$gender=='male'] > 10) >= 6 )
-nfemale <- sum(phen$gender == 'female')
-femaleUse <- (rowSums(expr[, phen$gender=='female'] > 10) >= 6 )
-
-expr <- expr[(maleUse | femaleUse),]
-print(dim(expr))
-
-dds <- DESeqDataSetFromMatrix(countData = expr, colData = phen, design = ~ gender)
-dds <- estimateSizeFactors(dds)
-dat <- counts(dds, normalized=TRUE)
-#dds <- DESeq(dds, parallel=T)
-#return(dds)
-# Estimate surrogate variables
-#dds <- estimateSizeFactors(dds)
-#print(head(dat))
-mod <- model.matrix(~phen$gender, colData(dds))
-mod0 <- model.matrix(~1, colData(dds))
-svseq <- svaseq(dat, mod, mod0, n.sv=2)
-# svseq$sv: matrix of SVs
-# svseq$n.sv: number of SVs
-
-ddssva <- dds
-ddssva$SV1 <- svseq$sv[,1]
-ddssva$SV2 <- svseq$sv[,2]
-design(ddssva) <- ~ SV1 + SV2 + gender  
-ddssva <- DESeq(ddssva, parallel=T)
-#res <- results(ddssva, parallel=T)
-return(ddssva)
-                                                                                        
-}
-
 if (!require(DESeq2)) {
         library(BiocInstaller)
         biocLite('DESeq2')
@@ -51,8 +10,46 @@ library(sva)
 library(BiocParallel)
 register(MulticoreParam(4))
 
-load('luad.counts.Robj')
-load('luad.phens.Robj')
+source('variables.R')
+
+load(paste(cancer_type,'count.Robj', sep="_"))
+load(paste(cancer_type,'phen.Robj', sep="_"))
+
+performDE <- function(expr, phen) {
+
+        # First, filter genes with 0 count in all individuals
+        use <- (rowSums(expr) > 0)
+        expr <- expr[use,]
+
+        # Filter low gene counts
+        # Genes must have counts > 10 in at least 6 males or 6 females
+
+	nmale <- sum(phen$Sex == 'male')
+	maleUse <- (rowSums(expr[, phen$Sex=='male'] > 10) >= 6 )
+	nfemale <- sum(phen$Sex == 'female')
+	femaleUse <- (rowSums(expr[, phen$Sex=='female'] > 10) >= 6 )
+
+	expr <- expr[(maleUse | femaleUse),]
+	print(dim(expr))
+
+	dds <- DESeqDataSetFromMatrix(countData = expr, colData = phen, design = ~ Sex)
+	dds <- estimateSizeFactors(dds)
+	dat <- counts(dds, normalized=TRUE)
+
+	mod <- model.matrix(~phen$Sex, colData(dds))
+	mod0 <- model.matrix(~1, colData(dds))
+	svseq <- svaseq(dat, mod, mod0, n.sv=2)
+
+	ddssva <- dds
+	rm(dds)
+	ddssva$SV1 <- svseq$sv[,1]
+	ddssva$SV2 <- svseq$sv[,2]
+	design(ddssva) <- ~ SV1 + SV2 + Sex  
+	ddssva <- DESeq(ddssva, parallel=T)
+	
+	return(ddssva)
+                                                                                        
+}
 
 expr_df <- counts_df
 rm(counts_df)
@@ -60,9 +57,9 @@ rm(counts_df)
 exp_stats <- expr_df[(nrow(expr_df)-4):nrow(expr_df),]
 exprs <- expr_df[1:(nrow(expr_df)-5),]
 
-luad_deseq <- performDE(exprs, cond)
-save(thca_deseq, file='luad_de.Robj')
+deseq <- performDE(exprs, cond)
+save(deseq, file=de_outfile)
 
-luad_results <- results(luad_deseq, parallel=T)
-luad_results <- thca_results[order(luad_results$padj),]
-save(luad_results, file='luad_results.Robj')
+deseq_results <- results(deseq, parallel=T)
+deseq_results <- deseq_results[order(deseq_results$padj),]
+save(deseq_results, file=res_outfile)
