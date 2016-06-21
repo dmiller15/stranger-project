@@ -74,6 +74,8 @@ biomart.results=getBM(ensembl,
 		      filters="ensembl_gene_id",
 		      values=gene_names)
 
-deseq_results$symbol <- biomart.results$hgnc_symbol
-write.csv(as.data.frame(deseq_results), file='results.csv')
+
+results.df$Ensembl <- gene_names
+#results.df$symbol <- biomart.results$hgnc_symbol
+write.csv(results.df, file=paste(cancer_type,'results.csv', sep='.'))
 save(deseq_results, file=res_outfile)

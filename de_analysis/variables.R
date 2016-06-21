@@ -1,4 +1,4 @@
-cancer_type <- 'LUAD'
+cancer_type <- 'ACC'
 
 dir_prefix <- '/mnt/data'
 phen_outfile <- paste(cancer_type, 'phen.Robj', sep="_")
