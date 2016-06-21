@@ -21,5 +21,5 @@ biomart.results=getBM(ensembl,
 pdf(file='volcano.pdf')
 g <- ggplot(results.df, aes(x=log2FoldChange, y=-log10(pvalue), color=results.sig))
 g + geom_point() + 
-	scale_color_manual(values=c('TRUE'='red','FALSE'='black'), labels=c("Signif", "Not Signif"))
+	scale_color_manual(values=c('TRUE'='red','FALSE'='black'), labels=c("Not Signif", "Signif"))
 dev.off()

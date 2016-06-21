@@ -6,6 +6,7 @@ if (!require(DESeq2)) {
 
 library(ggplot2)
 library(sva)
+library(biomaRt)
 
 library(BiocParallel)
 register(MulticoreParam(4))
@@ -62,5 +63,17 @@ deseq <- performDE(exprs, cond)
 
 deseq_results <- results(deseq, parallel=T)
 deseq_results <- deseq_results[order(deseq_results$padj),]
+
+ensembl <- useMart("ENSEMBL_MART_ENSEMBL",dataset="hsapiens_gene_ensembl", host="www.ensembl.org")
+#gene_names <- rownames(results.df)
+
+results.df <- as.data.frame(deseq_results)
+gene_names <- apply(matrix(rownames(results.df), ncol=1), 1, function(x) {unlist(strsplit(x, split='[.]'))[1]})
+biomart.results=getBM(ensembl,
+		      attributes=c("ensembl_gene_id","hgnc_symbol","entrezgene", "chromosome_name"),
+		      filters="ensembl_gene_id",
+		      values=gene_names)
+
+deseq_results$symbol <- biomart.results$hgnc_symbol
+write.csv(as.data.frame(deseq_results), file='results.csv')
 save(deseq_results, file=res_outfile)
-write.csv(as.data.frame(deseqresults), file='results.csv')
