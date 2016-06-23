@@ -13,7 +13,7 @@ phens_df <- read.table(file=phen_file, header=T, stringsAsFactors=F, sep="\t", r
 ids_with_counts <- (!is.na(files_df$File))
 
 phens <- phens_df[ids_with_counts,]
-cond <- phens[,'gender',drop=F]
-colnames(cond) <- 'Sex' # Rename gender to Sex
+#cond <- phens[,'gender',drop=F]
+#colnames(cond) <- 'Sex' # Rename gender to Sex
 
-save(cond, file=phen_outfile)
+save(phens, file=phen_outfile)
