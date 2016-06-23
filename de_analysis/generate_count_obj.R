@@ -29,4 +29,10 @@ for (i in seq(length(all_counts))) {
 }
 
 colnames(counts_df) <- all_ids
+
+#counts_df <- counts_df[(nrow(counts_df)-4):nrow(counts_df),]
+counts_df <- counts_df[1:(nrow(counts_df)-5),] # Remove last rows, which contain alignment stats
+
+use <- (rowSums(counts_df)>0)
+counts_df <- counts_df[use, ]
 save(counts_df, file=count_outfile)
