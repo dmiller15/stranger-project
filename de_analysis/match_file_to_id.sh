@@ -1,7 +1,7 @@
 # Script to match each case ID present in the Broad TCGA CDE file with an mRNA count file from the GDC
 # Returns a 2 column file: file_name	case_id
 
-cancer_type="LUAD"
+#cancer_type="LUAD"
 
 mkdir -p $cancer_type
 cd $cancer_type/
@@ -23,12 +23,12 @@ cut -f 1 $phen_data | tail -n +2 > $cancer_type.ids.txt
 grep $cancer_type $count_data | grep "Primary Tumor" > $cancer_type.primary.files.txt
 grep $cancer_type $count_data | grep Normal > $cancer_type.normal.files.txt
 
-echo "ID\tFile" > $cancer_type.count.files
+echo -e "ID\tFile" > $cancer_type.count.files
 while read line; do
         tcga_id=$line
         file_line=$(cat $cancer_type.primary.files.txt | tr '[:upper:]' '[:lower:]' | grep $tcga_id)
         f=$(echo $file_line | cut -d ' ' -f 2)
-        echo "$tcga_id\t$f" >> $cancer_type.count.files
+        echo -e "$tcga_id\t$f" >> $cancer_type.count.files
 done < $cancer_type.ids.txt
 
 rm $cancer_type.primary.files.txt;

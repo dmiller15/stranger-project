@@ -11,6 +11,9 @@ library(biomaRt)
 library(BiocParallel)
 register(MulticoreParam(4))
 
+args <- commandArgs(TRUE)
+cancer_type <- args[1]
+
 source('variables.R')
 
 load(paste(cancer_type,'count.Robj', sep="_"))

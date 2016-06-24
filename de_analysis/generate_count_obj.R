@@ -2,6 +2,9 @@
 # rownames are TCGA IDs
 # Columns are each covariate of interest
 
+args <- commandArgs(TRUE)
+cancer_type <- args[1]
+
 source('variables.R')
 
 files_df <- read.table(file=paste(cancer_type,'count.files',sep='.'), header=T, stringsAsFactors=F, na.strings='', fill=T)
