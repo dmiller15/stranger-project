@@ -1,10 +1,12 @@
 cancer_type <- 'ACC'
 
+setwd(cancer_type)
+
 dir_prefix <- '/mnt/data'
 phen_outfile <- paste(cancer_type, 'phen.Robj', sep="_")
 count_outfile <- paste(cancer_type, 'count.Robj', sep="_")
 
-paste(cancer_type, 'count.files', sep='.')
+#paste(cancer_type, 'count.files', sep='.')
 de_outfile <- paste(cancer_type, 'de.Robj', sep="_")
 res_outfile <- paste(cancer_type, 'res.Robj', sep="_")
 

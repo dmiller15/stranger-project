@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -i
 
 script_dir=/mnt/data/osdc-docs/de_analysis
 #cd /mnt/data

@@ -3,6 +3,9 @@
 
 cancer_type="ACC"
 
+mkdir -p $cancer_type
+cd $cancer_type/
+
 path_prefix='/mnt/data'
 count_dir="$path_prefix/gdc-mrna-counts/TCGA-$cancer_type"
 count_data="/mnt/data/gdc-mrna-counts/mrna_data.txt"
@@ -27,3 +30,6 @@ while read line; do
         f=$(echo $file_line | cut -d ' ' -f 2)
         echo "$tcga_id\t$f" >> $cancer_type.count.files
 done < $cancer_type.ids.txt
+
+rm $cancer_type.primary.files.txt;
+rm $cancer_type.normal.files.txt;

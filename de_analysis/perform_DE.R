@@ -25,19 +25,19 @@ performDE <- function(expr, phen) {
         # Filter low gene counts
         # Genes must have counts > 10 in at least 6 males or 6 females
 
-	nmale <- sum(phen$Sex == 'male')
-	maleUse <- (rowSums(expr[, phen$Sex=='male'] > 10) >= 6 )
-	nfemale <- sum(phen$Sex == 'female')
-	femaleUse <- (rowSums(expr[, phen$Sex=='female'] > 10) >= 6 )
+	nmale <- sum(phen$gender == 'male')
+	maleUse <- (rowSums(expr[, phen$gender=='male'] > 10) >= 6 )
+	nfemale <- sum(phen$gender == 'female')
+	femaleUse <- (rowSums(expr[, phen$gender=='female'] > 10) >= 6 )
 
 	expr <- expr[(maleUse | femaleUse),]
 	print(dim(expr))
 
-	dds <- DESeqDataSetFromMatrix(countData = expr, colData = phen, design = ~ Sex)
+	dds <- DESeqDataSetFromMatrix(countData = expr, colData = phen, design = ~ gender)
 	dds <- estimateSizeFactors(dds)
 	dat <- counts(dds, normalized=TRUE)
 
-	mod <- model.matrix(~phen$Sex, colData(dds))
+	mod <- model.matrix(~phen$gender, colData(dds))
 	mod0 <- model.matrix(~1, colData(dds))
 	svseq <- svaseq(dat, mod, mod0, n.sv=2)
 
@@ -45,7 +45,7 @@ performDE <- function(expr, phen) {
 	rm(dds)
 	ddssva$SV1 <- svseq$sv[,1]
 	ddssva$SV2 <- svseq$sv[,2]
-	design(ddssva) <- ~ SV1 + SV2 + Sex  
+	design(ddssva) <- ~ SV1 + SV2 + gender  
 	ddssva <- DESeq(ddssva, parallel=T)
 	
 	return(ddssva)
@@ -58,7 +58,7 @@ rm(counts_df)
 exp_stats <- expr_df[(nrow(expr_df)-4):nrow(expr_df),]
 exprs <- expr_df[1:(nrow(expr_df)-5),]
 
-deseq <- performDE(exprs, cond)
+deseq <- performDE(exprs, phens)
 #save(deseq, file=de_outfile)
 
 deseq_results <- results(deseq, parallel=T)
