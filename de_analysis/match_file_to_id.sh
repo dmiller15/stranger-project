@@ -1,7 +1,7 @@
 # Script to match each case ID present in the Broad TCGA CDE file with an mRNA count file from the GDC
 # Returns a 2 column file: file_name	case_id
 
-cancer_type="ACC"
+cancer_type="LUAD"
 
 mkdir -p $cancer_type
 cd $cancer_type/

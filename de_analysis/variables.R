@@ -1,4 +1,4 @@
-cancer_type <- 'ACC'
+cancer_type <- 'LUAD'
 
 setwd(cancer_type)
 
