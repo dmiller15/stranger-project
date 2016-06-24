@@ -5,9 +5,15 @@ Ensure you have pre-requisite files:
 * Count files, downloaded from the Bionimbus objectstore `gdc-mrna-counts` bucket
 * Phenotype files, downloaded from the Bionimbus objectstore `tcga` bucket
 
-## Step 0: Edit the variables.R file
+# Steps of the wrapper script
 
-This file will be imported in steps 2-4 to easily allow the user to change which cancer type is tested and the location of input and output files.
+The `wrapper.sh` script generates input files necessary to run the DE analysis. The cancer type to perform the DE analysis on is also specified here. 
+
+This script can be easily modified to loop over all available cancer types.
+
+## Step 0: The variables.R file
+
+This file will be imported in steps 2-4 to define file and directory R variables based on the cancer type defined in the `wrapper.sh` file.
 
 ## Step 1: Match available phenotypes with count data
 
