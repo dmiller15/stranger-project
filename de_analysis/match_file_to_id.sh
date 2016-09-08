@@ -1,35 +1,13 @@
-# Script to match each case ID present in the Broad TCGA CDE file with an mRNA count file from the GDC
-# Returns a 2 column file: file_name	case_id
+# Parses out count files specific to the tissue type
+# Returns a 2 column file: case_id"\t"file_name
 
-#cancer_type="LUAD"
+# Make new dir and move there
+mkdir -p $tissue_type
+cd $tissue_type/
 
-mkdir -p $cancer_type
-cd $cancer_type/
+# Pass in the count data file
+count_data=$1
 
-path_prefix='/mnt/data'
-count_dir="$path_prefix/gdc-mrna-counts/TCGA-$cancer_type"
-count_data="/mnt/data/gdc-mrna-counts/mrna_data.txt"
-
-phen_data="$path_prefix/tcga/tcga_phens/t.$cancer_type.txt"
-
-# Create transposed file if doesn't exist
-if [ ! -f "$phen_data" ];
-then
-	cat $path_prefix/tcga/tcga_phens/$cancer_type.clin.merged.picked.txt | datamash transpose > $phen_data
-fi
-
-cut -f 1 $phen_data | tail -n +2 > $cancer_type.ids.txt
-
-grep $cancer_type $count_data | grep "Primary Tumor" > $cancer_type.primary.files.txt
-grep $cancer_type $count_data | grep Normal > $cancer_type.normal.files.txt
-
-echo -e "ID\tFile" > $cancer_type.count.files
-while read line; do
-        tcga_id=$line
-        file_line=$(cat $cancer_type.primary.files.txt | tr '[:upper:]' '[:lower:]' | grep $tcga_id)
-        f=$(echo $file_line | cut -d ' ' -f 2)
-        echo -e "$tcga_id\t$f" >> $cancer_type.count.files
-done < $cancer_type.ids.txt
-
-rm $cancer_type.primary.files.txt;
-rm $cancer_type.normal.files.txt;
+# Just grep out the files for the tissue type from the phen_data file
+echo -e "ID\tFile" > $tissue_type.count.files
+grep $tissue_type $count_data | awk '{print $3"\t"$2}' >> $tissue_type.count.files

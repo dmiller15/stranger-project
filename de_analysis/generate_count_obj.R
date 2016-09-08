@@ -3,11 +3,12 @@
 # Columns are each covariate of interest
 
 args <- commandArgs(TRUE)
-cancer_type <- args[1]
+tissue_type <- args[1]
+count_dir <- args[2]
 
 source('variables.R')
 
-files_df <- read.table(file=paste(cancer_type,'count.files',sep='.'), header=T, stringsAsFactors=F, na.strings='', fill=T)
+files_df <- read.table(file=paste(tissue_type,'count.files',sep='.'), header=T, stringsAsFactors=F, na.strings='', fill=T)
 
 all_ids <- NULL
 all_counts <- list()
@@ -16,8 +17,8 @@ for (i in seq(nrow(files_df))) {
         f_in <- files_df$File[i]
 
         if (!is.na(f_in)) {
-                count_file <- paste(mrna_files_dir, f_in, sep='/')
-                x <- read.table(file=count_file, header=F, row.names=1, stringsAsFactors=F)
+                count_file <- paste(count_dir, f_in, sep='/')
+                x <- read.table(count_file, header=T, sep='\t', row.names=1, stringsAsFactors=F)
                 all_counts[[i]] <- data.frame(x)
                 all_ids <- c(all_ids, id)
 

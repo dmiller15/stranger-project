@@ -12,12 +12,12 @@ library(BiocParallel)
 register(MulticoreParam(4))
 
 args <- commandArgs(TRUE)
-cancer_type <- args[1]
+tissue_type <- args[1]
 
 source('variables.R')
 
-load(paste(cancer_type,'count.Robj', sep="_"))
-load(paste(cancer_type,'phen.Robj', sep="_"))
+load(paste(tissue_type,'count.Robj', sep="_"))
+load(paste(tissue_type,'phen.Robj', sep="_"))
 
 performDE <- function(expr, phen) {
 
@@ -28,9 +28,9 @@ performDE <- function(expr, phen) {
         # Filter low gene counts
         # Genes must have counts > 10 in at least 6 males or 6 females
 
-	nmale <- sum(phen$gender == 'male')
+	nmale <- sum(phen$gender == 'male', na.rm=T)
 	maleUse <- (rowSums(expr[, phen$gender=='male'] > 10) >= 6 )
-	nfemale <- sum(phen$gender == 'female')
+	nfemale <- sum(phen$gender == 'female', na.rm=T)
 	femaleUse <- (rowSums(expr[, phen$gender=='female'] > 10) >= 6 )
 
 	expr <- expr[(maleUse | femaleUse),]

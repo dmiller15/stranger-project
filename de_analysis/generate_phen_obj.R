@@ -3,15 +3,15 @@
 # Columns are each covariate of interest
 
 args <- commandArgs(TRUE)
-cancer_type <- args[1]
+tissue_type <- args[1]
 
 source('variables.R')
 
-files_dir <- paste(dir_prefix, '/gdc-mrna-counts/TCGA-', cancer_type, sep='')
-phen_file <- paste(dir_prefix, '/tcga/tcga_phens/t.', cancer_type, '.txt', sep='')
+phen_file <- args[2]
 
-files_df <- read.table(file=paste(cancer_type,'count.files',sep='.'), header=T, stringsAsFactors=F, na.strings='', fill=T)
-phens_df <- read.table(file=phen_file, header=T, stringsAsFactors=F, sep="\t", row.names=1)
+files_df <- read.table(file=paste(tissue_type,'count.files',sep='.'), header=T, stringsAsFactors=F, na.strings='', fill=T)
+phens_df <- read.table(file=phen_file, header=F, stringsAsFactors=F, sep="\t", row.names=1)
+colnames(phens_df) <- "gender"
 
 ids_with_counts <- (!is.na(files_df$File))
 
